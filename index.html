@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Masha & Bear Forest Adventure</title>
+    <meta
+      name="description"
+      content="A playful cartoon adventure game featuring Masha and Bear in a colorful forest."
+    />
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <div id="app">
+      <section id="screen-home" class="screen active" aria-label="Home screen">
+        <div class="forest-animation" aria-hidden="true">
+          <div class="sun"></div>
+          <div class="cloud cloud-1"></div>
+          <div class="cloud cloud-2"></div>
+          <div class="cloud cloud-3"></div>
+          <div class="tree tree-1"></div>
+          <div class="tree tree-2"></div>
+          <div class="tree tree-3"></div>
+          <div class="tree tree-4"></div>
+          <div class="flower flower-1"></div>
+          <div class="flower flower-2"></div>
+          <div class="flower flower-3"></div>
+          <div class="flower flower-4"></div>
+          <div class="butterfly butterfly-1"></div>
+          <div class="butterfly butterfly-2"></div>
+          <div class="butterfly butterfly-3"></div>
+          <div class="cabin"></div>
+        </div>
+
+        <div class="title-card">
+          <p class="eyebrow">Cartoon Adventure</p>
+          <h1>Masha & Bear</h1>
+          <h2>Forest Adventure</h2>
+
+          <div class="home-actions">
+            <button class="action-btn primary" data-action="play">▶ PLAY GAME</button>
+            <button class="action-btn accent" data-action="how-to-play">🎮 HOW TO PLAY</button>
+            <button class="action-btn accent" data-action="leaderboard">🏆 LEADERBOARD</button>
+            <button class="action-btn accent" data-action="settings">⚙ SETTINGS</button>
+          </div>
+        </div>
+      </section>
+
+      <section id="screen-character" class="screen hidden" aria-label="Character selection screen">
+        <div class="panel large-panel">
+          <h3 class="section-title">CHOOSE YOUR CHARACTER</h3>
+
+          <div class="character-grid">
+            <button class="character-card selected" data-character="masha" type="button">
+              <div class="character-portrait masha-portrait" aria-hidden="true">
+                <div class="mini-head"></div>
+                <div class="mini-body"></div>
+              </div>
+              <div class="card-copy">
+                <h4>👧 MASHA</h4>
+                <p>Fast and agile</p>
+                <span>Ability: Double Jump</span>
+              </div>
+            </button>
+
+            <button class="character-card" data-character="bear" type="button">
+              <div class="character-portrait bear-portrait" aria-hidden="true">
+                <div class="mini-head bear-head"></div>
+                <div class="mini-body bear-body"></div>
+              </div>
+              <div class="card-copy">
+                <h4>🐻 BEAR</h4>
+                <p>Strong and powerful</p>
+                <span>Ability: Power Smash</span>
+              </div>
+            </button>
+          </div>
+
+          <button id="continue-btn" class="action-btn primary large" type="button">CONTINUE →</button>
+        </div>
+      </section>
+
+      <section id="screen-game" class="screen hidden" aria-label="Game screen">
+        <div class="game-shell">
+          <div class="hud" aria-live="polite">
+            <div class="hud-group"><span>❤️</span><strong id="hud-lives">3</strong></div>
+            <div class="hud-group"><span>⭐</span><strong id="hud-score">0</strong></div>
+            <div class="hud-group"><span>🪙</span><strong id="hud-coins">0</strong></div>
+            <div class="hud-group"><span>🍯</span><strong id="hud-honey">0</strong></div>
+            <div class="hud-group"><span>🏃</span><strong id="hud-distance">0m</strong></div>
+            <div class="hud-group ability-group">
+              <span>⚡</span>
+              <strong id="hud-ability">ABILITY READY</strong>
+            </div>
+            <button id="pause-btn" class="pause-btn" type="button" aria-label="Pause game">Ⅱ PAUSE</button>
+          </div>
+
+          <div class="mission-panel">
+            <div>
+              <span class="mission-label">MISSION</span>
+              <strong id="mission-text">Collect 20 flowers</strong>
+            </div>
+            <div class="mission-bar">
+              <div id="mission-progress" class="mission-progress"></div>
+            </div>
+          </div>
+
+          <div class="canvas-panel">
+            <canvas id="gameCanvas" width="960" height="540" aria-label="Game canvas"></canvas>
+          </div>
+
+          <div class="touch-controls hidden" id="touch-controls" aria-label="Touch controls">
+            <button class="touch-btn" data-control="left" type="button" aria-label="Move left">◀ LEFT</button>
+            <button class="touch-btn" data-control="right" type="button" aria-label="Move right">RIGHT ▶</button>
+            <button class="touch-btn accent" data-control="jump" type="button" aria-label="Jump">JUMP ⤒</button>
+            <button class="touch-btn accent" data-control="ability" type="button" aria-label="Use character ability">⚡ ABILITY</button>
+          </div>
+          <p class="game-hint">Move: ← → or A/D · Jump: Space · Ability: E · Pause: P</p>
+        </div>
+      </section>
+
+      <section id="screen-leaderboard" class="screen hidden" aria-label="Leaderboard screen">
+        <div class="panel score-panel">
+          <h3 class="section-title">🏆 TOP SCORES</h3>
+          <ol id="leaderboardList" class="leaderboard-list"></ol>
+          <button class="action-btn accent" data-action="back-home" type="button">HOME</button>
+        </div>
+      </section>
+
+      <section id="screen-settings" class="screen hidden" aria-label="Settings screen">
+        <div class="panel settings-panel">
+          <h3 class="section-title">⚙ SETTINGS</h3>
+
+          <div class="setting-row">
+            <span>Sound</span>
+            <button id="sound-toggle" class="toggle-btn on" type="button">ON</button>
+          </div>
+          <div class="setting-row">
+            <span>Music</span>
+            <button id="music-toggle" class="toggle-btn on" type="button">ON</button>
+          </div>
+          <div class="setting-row">
+            <label for="difficultySelect">Difficulty</label>
+            <select id="difficultySelect">
+              <option value="easy">Easy</option>
+              <option value="normal" selected>Normal</option>
+              <option value="hard">Hard</option>
+            </select>
+          </div>
+          <div class="setting-row">
+            <label for="controlsSelect">Controls</label>
+            <select id="controlsSelect">
+              <option value="keyboard" selected>Keyboard</option>
+              <option value="touch">Touch</option>
+            </select>
+          </div>
+
+          <button class="action-btn accent" id="settings-back" type="button">BACK</button>
+        </div>
+      </section>
+    </div>
+
+    <div id="modal-overlay" class="modal-overlay hidden" aria-live="assertive">
+      <div class="modal-card">
+        <h3 id="modal-title">PAUSED</h3>
+        <div id="modal-content"></div>
+        <div class="modal-actions" id="modal-actions"></div>
+      </div>
+    </div>
+
+    <div id="error-banner" class="error-banner hidden" role="alert" aria-live="assertive"></div>
+
+    <script src="./game.js"></script>
+  </body>
+</html>
